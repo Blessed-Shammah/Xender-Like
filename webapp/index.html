@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FileVault — Your Personal Cloud</title>
+  <meta name="description" content="Upload, manage, and download your files from anywhere. A premium file sharing experience." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header id="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon material-icons-round">cloud_upload</span>
+        <h1>FileVault</h1>
+      </div>
+      <div class="header-stats" id="header-stats">
+        <div class="stat-chip">
+          <span class="material-icons-round">folder</span>
+          <span id="stat-total-files">0 files</span>
+        </div>
+        <div class="stat-chip">
+          <span class="material-icons-round">storage</span>
+          <span id="stat-total-size">0 B</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="app-main">
+    <!-- Upload Zone -->
+    <section class="upload-section">
+      <div class="upload-zone" id="upload-zone">
+        <div class="upload-zone-content">
+          <div class="upload-icon-wrapper">
+            <span class="material-icons-round upload-icon">cloud_upload</span>
+          </div>
+          <h2>Drop files here</h2>
+          <p>or click to browse your files</p>
+          <button class="btn btn-primary" id="browse-btn">
+            <span class="material-icons-round">folder_open</span>
+            Browse Files
+          </button>
+        </div>
+        <input type="file" id="file-input" multiple hidden />
+        <!-- Upload Progress -->
+        <div class="upload-progress" id="upload-progress" hidden>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="progress-text" id="progress-text">Uploading...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toolbar -->
+    <section class="toolbar" id="toolbar">
+      <div class="toolbar-left">
+        <h2 class="section-title">Your Files</h2>
+        <span class="file-count" id="file-count"></span>
+      </div>
+      <div class="toolbar-right">
+        <div class="search-box">
+          <span class="material-icons-round">search</span>
+          <input type="text" id="search-input" placeholder="Search files..." />
+        </div>
+        <select id="category-filter" class="filter-select">
+          <option value="all">All Types</option>
+          <option value="image">Images</option>
+          <option value="video">Videos</option>
+          <option value="audio">Audio</option>
+          <option value="document">Documents</option>
+          <option value="archive">Archives</option>
+          <option value="other">Other</option>
+        </select>
+        <select id="sort-select" class="filter-select">
+          <option value="date">Newest</option>
+          <option value="name">Name</option>
+          <option value="size">Size</option>
+        </select>
+        <div class="view-toggle">
+          <button class="view-btn active" id="grid-view-btn" title="Grid View">
+            <span class="material-icons-round">grid_view</span>
+          </button>
+          <button class="view-btn" id="list-view-btn" title="List View">
+            <span class="material-icons-round">view_list</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- File Grid -->
+    <section class="files-container" id="files-container">
+      <div class="files-grid" id="files-grid">
+        <!-- Files rendered here -->
+      </div>
+      <!-- Empty State -->
+      <div class="empty-state" id="empty-state" hidden>
+        <span class="material-icons-round empty-icon">inventory_2</span>
+        <h3>No files yet</h3>
+        <p>Upload your first file to get started</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" id="delete-modal" hidden>
+    <div class="modal">
+      <div class="modal-icon">
+        <span class="material-icons-round">warning</span>
+      </div>
+      <h3>Delete File?</h3>
+      <p id="delete-file-name">This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="cancel-delete-btn">Cancel</button>
+        <button class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

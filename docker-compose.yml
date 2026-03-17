@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  filevault:
+    build: .
+    container_name: filevault
+    restart: unless-stopped
+    ports:
+      - "3009:3009"
+    volumes:
+      - filevault_uploads:/app/server/uploads
+      - filevault_data:/app/server/data
+
+volumes:
+  filevault_uploads:
+  filevault_data:
