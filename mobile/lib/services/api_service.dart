@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../models/file_model.dart';
 
 class ApiService {
@@ -64,6 +65,14 @@ class ApiService {
 
   // --- Download file ---
   Future<String?> downloadFile(String fileId, String fileName) async {
+    // Request storage permission first
+    if (Platform.isAndroid) {
+      final status = await Permission.storage.request();
+      if (status.isDenied) {
+        throw Exception('Storage permission denied');
+      }
+    }
+
     Directory? downloadsDir;
     if (Platform.isAndroid) {
       downloadsDir = Directory('/storage/emulated/0/Download');
